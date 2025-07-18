@@ -48,9 +48,9 @@ Create a .env file in backend with:
 text
 MONGODB_URI=your_mongodb_atlas_connection_string
 PORT=3001
-# Running the App
+## Running the App
 
-** Start Backend Server**
+**Start Backend Server**
 
 cd backend
 npm start
@@ -62,7 +62,7 @@ cd ../frontend
 npm start
 App opens in browser at http://localhost:3000
 
-# 📂 Project Structure
+## 📂 Project Structure
 text
 mern-notemaker/
 ├── backend/           # Server code
@@ -73,7 +73,7 @@ mern-notemaker/
 │   ├── src/
 │   └── package.json
 └── README.md
-# 🤝 How to Contribute
+## 🤝 How to Contribute
 Fork the project
 
 Create your feature branch (git checkout -b feature/AmazingFeature)
