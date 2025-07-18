@@ -30,36 +30,39 @@ A full-stack note-taking application built with MongoDB, Express, React, and Nod
    ```bash
    git clone https://github.com/pullaramyasree/mern-notemaker.git
    cd mern-notemaker
-Set up Backend
+   
+2. **Set up Backend**
 
 cd backend
 npm install
-Set up Frontend
+
+3. **Set up Frontend**
 
 cd ../frontend
 npm install
-Configure Environment
+
+4. **Configure Environment**
 
 Create a .env file in backend with:
 
 text
 MONGODB_URI=your_mongodb_atlas_connection_string
 PORT=3001
-Running the App
-Start Backend Server
+# Running the App
+
+** Start Backend Server**
 
 cd backend
 npm start
 Server runs on http://localhost:3001
 
-Start Frontend
+**Start Frontend**
 
-bash
 cd ../frontend
 npm start
 App opens in browser at http://localhost:3000
 
-📂 Project Structure
+# 📂 Project Structure
 text
 mern-notemaker/
 ├── backend/           # Server code
@@ -70,7 +73,7 @@ mern-notemaker/
 │   ├── src/
 │   └── package.json
 └── README.md
-🤝 How to Contribute
+# 🤝 How to Contribute
 Fork the project
 
 Create your feature branch (git checkout -b feature/AmazingFeature)
@@ -81,6 +84,4 @@ Push to the branch (git push origin feature/AmazingFeature)
 
 Open a Pull Request
 
-📜 License
-MIT License - see LICENSE file
 
