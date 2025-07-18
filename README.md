@@ -2,7 +2,7 @@
 
 A full-stack note-taking application built with MongoDB, Express, React, and Node.js (MERN stack). Create, edit, and delete notes with a clean, user-friendly interface.
 
-![NoteMaker Screenshot](./screenshot.png) *(Add a screenshot later)*
+<img width="1917" height="1079" alt="Image" src="https://github.com/user-attachments/assets/e6539c9d-7b48-467f-8d29-9cf179512f4b" />
 
 ## ✨ Features
 - 📌 Create, edit, and delete notes
