@@ -63,24 +63,17 @@ npm start
 App opens in browser at http://localhost:3000
 
 ## 📂 Project Structure
-
+```
 mern-notemaker/
 ├── backend/           # Server code
-
 │   ├── server.js      # Express server
-
 │   └── package.json
-
 ├── frontend/          # Client code
-
 │   ├── public/
-
 │   ├── src/
-
 │   └── package.json
-
 └── README.md
-
+```
 ## 🤝 How to Contribute
 Fork the project
 
