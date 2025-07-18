@@ -9,8 +9,10 @@ app.use(cors()); // Allow frontend to connect
 app.use(express.json()); // Parse JSON requests
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://pullaramyasree2005:w4AdqZhasEAKBHQP@cluster0.0xzix8d.mongodb.net/notes_db?retryWrites=true&w=majority')
-  .then(() => console.log('Connected to MongoDB'))
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log('Connected to MongoDB'))
   .catch(err => console.log('MongoDB connection error:', err));
 
 // Note Model
