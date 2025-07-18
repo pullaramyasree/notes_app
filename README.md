@@ -63,7 +63,7 @@ npm start
 App opens in browser at http://localhost:3000
 
 ## 📂 Project Structure
-text
+
 mern-notemaker/
 ├── backend/           # Server code
 │   ├── server.js      # Express server
