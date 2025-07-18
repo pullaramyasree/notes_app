@@ -74,15 +74,3 @@ mern-notemaker/
 │   └── package.json
 └── README.md
 ```
-## 🤝 How to Contribute
-Fork the project
-
-Create your feature branch (git checkout -b feature/AmazingFeature)
-
-Commit your changes (git commit -m 'Add some amazing feature')
-
-Push to the branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
-
-
