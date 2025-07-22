@@ -18,7 +18,11 @@ function App() {
   // Fetch notes from backend
   const fetchNotes = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/notes');
+      // Replace ALL localhost references with:
+      const API_URL = "https://notes-app-7-p2tg.onrender.com/api/notes";
+
+      // Example fetch:
+      const response = await fetch(API_URL);
       const data = await response.json();
       setNotes(data);
     } catch (error) {

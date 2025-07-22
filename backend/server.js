@@ -1,70 +1,95 @@
+require('dotenv').config(); // Add this at the top
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 // Middleware
-app.use(cors()); // Allow frontend to connect
-app.use(express.json()); // Parse JSON requests
+app.use(cors({
+  origin: [
+    'https://your-frontend.vercel.app', // Your Vercel URL
+    'http://localhost:3000'             // For local dev
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
+app.use(bodyParser.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
+// MongoDB Connection
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/notes_db';
+
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.log('MongoDB connection error:', err));
+})
+.then(() => console.log('Connected to MongoDB'))
+.catch(err => console.error('MongoDB connection error:', err));
 
-// Note Model
-const Note = mongoose.model('Note', {
-  title: String,
-  content: String,
-  createdAt: { type: Date, default: Date.now }
-}, 'notes'); // Store all notes in 'notes' collection
+// Note Schema and Model
+const noteSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  content: { type: String, required: true },
+  createdAt: { type: Date,
+     default: Date.now }
+}, { collection: 'notes' });
 
-// Routes
+const Note = mongoose.model('Note', noteSchema);
 
-// Create a note
+// API Routes
 app.post('/api/notes', async (req, res) => {
   try {
-    const note = new Note(req.body);
+    const { title, content } = req.body;
+    if (!title || !content) {
+      return res.status(400).json({ error: 'Title and content are required' });
+    }
+    const note = new Note({ title, content });
     await note.save();
-    res.status(201).send(note);
+    res.status(201).json(note);
   } catch (error) {
-    res.status(500).send({ error: 'Error saving note' });
+    res.status(500).json({ error: 'Server error', details: error.message });
   }
 });
 
-// Get all notes
 app.get('/api/notes', async (req, res) => {
   try {
-    const notes = await Note.find().sort({ createdAt: -1 }); // Newest first
-    res.send(notes);
+    const notes = await Note.find().sort({ createdAt: -1 });
+    res.json(notes);
   } catch (error) {
-    res.status(500).send({ error: 'Error fetching notes' });
+    res.status(500).json({ error: 'Server error', details: error.message });
   }
 });
 
-// Update a note
 app.put('/api/notes/:id', async (req, res) => {
   try {
-    const note = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.send(note);
+    const { title, content } = req.body;
+    const note = await Note.findByIdAndUpdate(
+      req.params.id,
+      { title, content },
+      { new: true, runValidators: true }
+    );
+    if (!note) {
+      return res.status(404).json({ error: 'Note not found' });
+    }
+    res.json(note);
   } catch (error) {
-    res.status(500).send({ error: 'Error updating note' });
+    res.status(500).json({ error: 'Server error', details: error.message });
   }
 });
 
-// Delete a note
 app.delete('/api/notes/:id', async (req, res) => {
   try {
-    await Note.findByIdAndDelete(req.params.id);
-    res.send({ message: 'Note deleted' });
+    const note = await Note.findByIdAndDelete(req.params.id);
+    if (!note) {
+      return res.status(404).json({ error: 'Note not found' });
+    }
+    res.json({ message: 'Note deleted successfully' });
   } catch (error) {
-    res.status(500).send({ error: 'Error deleting note' });
+    res.status(500).json({ error: 'Server error', details: error.message });
   }
 });
 
-// Start server
-const PORT = 3001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
