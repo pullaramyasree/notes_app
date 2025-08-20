@@ -8,11 +8,9 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: [
-    'https://your-frontend.vercel.app', // Your Vercel URL
-    'http://localhost:3000'             // For local dev
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type']
 }));
 app.use(bodyParser.json());
 
@@ -30,8 +28,7 @@ mongoose.connect(MONGODB_URI, {
 const noteSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
-  createdAt: { type: Date,
-     default: Date.now }
+  createdAt: { type: Date, default: Date.now }
 }, { collection: 'notes' });
 
 const Note = mongoose.model('Note', noteSchema);
@@ -92,8 +89,4 @@ app.delete('/api/notes/:id', async (req, res) => {
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-<<<<<<< HEAD
-});
-=======
-});
->>>>>>> 4dbea816a2dee8a9166b2c70441707d021288e8c
+})
